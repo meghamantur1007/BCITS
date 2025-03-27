@@ -1,0 +1,439 @@
+1.create table Employee(EmpId integer primary key, Name varchar(40) not null, Age int, JoiningDate date);
+   alter table Employee add column Salary decimal(10,2);
+
+
+2.use db;
+  drop table TempData;
+
+
+3.create table Products(ProductId primary key, ProductName not null, Price decimal(10,2) check(Price>0));
+
+4.rename table OldOrders to ArchivedOrders;
+
+5.create index index_of_categaory on Inventory(Category);
+
+6.insert into Student((StudentId,Name,Age,Grade) values(101,'Alice',20,'A'));
+
+7.update Results set Grade='B' where Marks<60;
+
+8.delete from Orders where Status='Cancelled';
+
+9.select * from TableA inner join TableB where TableA.Id=TableB.Id;
+
+11.select name from Employee where date > '2020-01-01';
+
+12.
+Avg: select avg(salary) as avg_salary from Employee;
+   Min: select min(salary) as min_salary from Employee;
+   Max: select max(salary) as max_salary from Employee;
+
+13.select * from Orders where OrderAmount>1000 and Status='Delivered';
+
+
+14.
+select category, sum(quantity) as totalProductsSold
+ from Sales 
+ group By Category;
+
+
+15.
+select c.customer_name,
+	c.order_id,
+	c.order_date,
+	c.order_amount
+from Customers
+join Orders o on c.customer_id=o.customer_id;
+
+
+
+16.
+select c.customer_name,
+	o.order_id,
+	o.order_date,
+	o.order_amount
+from Customers
+join Orders o on c.customer_id=o.customer_id;
+
+
+
+17.
+select c.customer_id, 
+    c.customer_name, 
+    c.email, 
+    o.order_id, 
+    o.order_date, 
+    o.order_amount, 
+    o.status
+from Customers c
+left join Orders o on c.customer_id=o.customer_id;
+
+
+18.
+select name,salary
+from Employee
+where salary > (select avg(salary) from Employee);
+
+
+20.
+select c.customer_name,
+       o.order_id,
+       o.order_date,
+       p.product_name 
+from Customer c
+join Order o on o.order_id=c.customer_id
+join Products p p.product_id=o.product_id;
+
+
+
+26.
+ORM-object relational mapping 
+	
+	create an instance of EntityManagerFactory  to establish database connection
+	EntityManagerFactory emf =Persistence.createEntityManagerFactory("persistence unit");
+	By using the ref of EntityManagerFactory create an instance of EntityManager
+	EntityManager em=emf.createEntityManager();
+	EntityManager is used to perform CRUD operations
+	Transaction trans=em.getTransaction();
+	starts the transaction.
+
+27.
+Components of JPA(Java Persistence API)
+1.Entity
+	Represents a table which is present in the database.
+	Entities are  usually annotated with @Entity and for mapping to a table we use @Table annotation
+2.EntityManager
+	It allows to do the CRUD operations.
+3.Persistence Unit
+	The persistence unit is specified in the persistence.xml file.
+4.Relationships
+	@OneToOne, @OneToMany, @ManyToOne, and @ManyToMany. 
+
+5.Annotations
+	 Annotations to map Java objects to database tables(examples for Annotations @Entity, @Table, @Id, @Column, @GeneratedValue)
+	
+
+
+29.
+JPQL : Java Persistence Query Language
+It is a query language used in JPA 
+Used to interact with the database.
+Works with tables and columns
+Syntax is most similar to SQL but it works with Java objects.
+
+
+
+30.
+select min(a.price) from ProductEntity a;
+
+
+
+31.
+First add the dependencies like MySQL Connector, Hibernate Core
+
+class Repository{
+
+EntityManagerFactory emf =Persistence.createEntityManagerFactory("persistence unit");
+EntityManager em=emf.createEntityManager();
+Transaction trans=em.getTransaction();
+
+try{
+
+	et.begin();
+	
+	et.commit();
+}
+catch(Exception e){
+
+
+}
+
+}
+
+
+
+32.
+-Load and Registering the Driver
+	Class.forName("com.mysql.cj.jdbc.Driver");
+-Start the Connection 
+	Connection connection=DriverManager.getConnection(url,userName,password)
+-Create the Statement
+-Execute the query
+-close the connection
+
+
+
+33.
+Polymorphism: 
+	poly means many and morphs means forms
+	2 types
+	  1)Method Overloading-Complie Time Polymorphism
+          2)Method Overriding-Run Tim Polymorphism
+	
+
+	1)Method Overloading-Methods having same name different number or type of parameters in the same class.
+	      class Calculate{
+
+		public int add(int a, int b){
+		   return a+b;
+		}
+		
+			
+		public int add(int a, int b, int c){
+		    return a+b+c;
+		}
+	
+	2)Method Overriding:--subclass overrides the method in the superclass.
+			Overring means changing the logic
+		class Animal{
+		   void makeSound(){
+			SOP("Vehicle Makes the sound);
+		   }
+		
+		class Dog extends Animal{
+
+		   void makeSound(){
+			SPO("Dog is barking");
+		}
+
+
+
+Inheritance
+Subclass inherting all the properties and methods from the superclass
+	class Animal{
+		   void makeSound(){
+			SOP("Vehicle Makes the sound);
+		   }
+
+	class Dog extends Animal{
+	     void bark(){
+			SPO("Dog is barking");
+		}
+
+
+	class Main{
+	   PSVM(String[] args){
+		Dog dog=new Dog();
+		dog.bark();
+		dog.makeSound();
+
+
+
+Encapsulation
+Encapsulation is the technique of hiding data within a class and allowing controlled access through getter and setter methods.
+
+
+class Person {
+    private int age;
+    private String name;
+
+    public Person(int age) {
+        this.age = age;
+    }
+
+    public int getAge() { 
+        return age; 
+    }
+      
+}
+
+
+
+
+Abstraction
+Abstraction hides implementation details and only shows the essential features.
+
+Abstract Class
+An abstract class contains abstract methods (methods without implementation).
+
+
+abstract class Vehicle {
+    abstract void start();  
+
+    void fuel() {
+        System.out.println("Vehicle has fuel");
+    }
+}
+
+class Car extends Vehicle {
+    @Override
+    void start() {
+        System.out.println("Car starts with a key");
+    }
+}
+
+
+}
+
+we can achieve the 100% abstraction through Interface
+
+
+
+34.
+ a equals is a method from Object class 
+ which is used to compare non primitive types
+ 
+ == is a operator used to column primitive types;
+
+
+
+The extends keyword is used when a class inherits from another class or an interface extends another interface.
+The implements keyword is used when a class implements an interface.
+
+
+
+A method is a block of code that performs a specific task and can be called multiple times.
+A constructor is a special method used to initialize variables when an instance of a class is created.
+
+
+
+Hashmap
+*Does not maintain order of keys.
+*Allows one null key and multiple null values.
+*Not synchronized (not thread-safe)
+
+LinkedHashmap
+*Does  maintain order of keys.
+*Allows one null key and multiple null values.
+*Not synchronized (not thread-safe)
+
+
+
+35.Complation error
+
+36.a=10 b=15
+
+37.Compilation error
+
+38.true
+
+39.Java Programming
+
+40.true
+
+41.4
+
+42.1000
+
+43.Yes
+
+44.we can get parameterized ref
+
+45.runtime exception 
+
+46.hello text will be displayed because ResponseBody return text;
+
+47.public class SimpleEmail {
+    public static void main(String[] args) {
+	
+        String senderEmail = "meghamantur@gmail.com";
+        String senderPassword = "876345";
+        String recipientEmail = "gunashree@gmail.com";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+
+        
+        Session session = Session.getInstance(props, new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(senderEmail, senderPassword);
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(senderEmail));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
+            message.setSubject("Message");
+            message.setText("Goog morning.");
+
+            Transport.send(message);
+            System.out.println("Email sent successfully!");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+48.public class ListToSet {
+    public static void main(String[] args) {
+        
+        List<String> list = new ArrayList<>();
+        list.add("Apple");
+        list.add("Banana");
+        list.add("Cherry");
+        list.add("Apple");
+
+        Set<String> set = new HashSet<>(list);
+        System.out.println("List to Set: " + set);
+
+        List<String> newList = new ArrayList<>(set);
+        System.out.println("Set to List: " + newList);
+    }
+}
+
+
+50.
+public class NumberPattern {
+    public static void main(String[] args) {
+        int n = 5;
+        
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print(j);
+            }
+            System.out.println();
+        }
+        
+        for (int i = n - 1; i >= 1; i--) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print(j);
+            }
+            System.out.println();
+        }
+    }
+}
+
+
+54.DispatcherServlet is Front Controller which act as a single controller handles all the requests.
+  whenever the user send the request from browser that request will be handled by the DispatcherServlet which acts as front controller then it consults the Handler
+  Mapping.
+
+56.
+@Configuration- Marks a class as a Spring configuration class.
+@Bean- it is an object which is managed by Spring container;
+DI-- DI is a process of injecting dependent objects;
+IoC-Ioc states that invert the control to external entity.
+
+
+57.
+public class NumbersUptoHundred {
+    public static void printNumbers(int n) {
+        if (n > 100)
+            return;
+        System.out.println(n);
+        printNumbers(n + 1);
+    }
+
+    public static void main(String[] args) {
+        printNumbers(1);
+    }
+}
+
+
+59.
+	<c:forEach var="name" items=""names>
+	
+	</c:forEach>
+
+
+
+
+
+
+
+
+
